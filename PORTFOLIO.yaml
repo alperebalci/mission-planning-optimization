@@ -1,0 +1,15 @@
+schema_version: 1
+repository: mission-planning-optimization
+role: umbrella
+axis: application
+area: mission-planning
+status: active
+owner: jorsacademy
+projects:
+  - deep-space-radar-scheduling-optimization
+  - drone-delivery-optimization-pulp
+  - risk-aware-convoy-escort-allocation-milp
+conventions:
+  provenance_records: true
+  reproducibility_expected: true
+  benchmark_assumptions_documented: true
