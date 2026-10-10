@@ -1,19 +1,19 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import random
+from dataclasses import dataclass
 from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pulp import (
+    PULP_CBC_CMD,
     LpBinary,
     LpMinimize,
     LpProblem,
     LpStatus,
     LpVariable,
-    PULP_CBC_CMD,
     lpSum,
     value,
 )
@@ -169,7 +169,11 @@ class AUVOptimizer:
             for i in range(1, n)
         )
         w = self.weights
-        model += w.mission_time * self.mission_time + w.energy * total_energy - w.priority * priority_reward
+        model += (
+            w.mission_time * self.mission_time
+            + w.energy * total_energy
+            - w.priority * priority_reward
+        )
 
         for i in range(1, n):
             model += lpSum(self.y[a, i] for a in range(self.num_auvs)) == 1
@@ -203,7 +207,10 @@ class AUVOptimizer:
 
         for a in range(self.num_auvs):
             for j in range(1, n):
-                model += self.start_time[a, j] >= self.travel_times[a, 0, j] - big_m * (1 - self.x[a, 0, j])
+                model += (
+                    self.start_time[a, j]
+                    >= self.travel_times[a, 0, j] - big_m * (1 - self.x[a, 0, j])
+                )
             for i in range(1, n):
                 duration_i = float(self.tasks.loc[i - 1, "duration"])
                 for j in range(1, n):
@@ -249,7 +256,11 @@ class AUVOptimizer:
                     (
                         j
                         for j in range(n)
-                        if j != current and value(self.x[a, current, j]) is not None and value(self.x[a, current, j]) > 0.5
+                        if (
+                            j != current
+                            and value(self.x[a, current, j]) is not None
+                            and value(self.x[a, current, j]) > 0.5
+                        )
                     ),
                     None,
                 )
