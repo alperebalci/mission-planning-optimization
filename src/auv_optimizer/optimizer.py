@@ -8,12 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pulp import (
+    PULP_CBC_CMD,
     LpBinary,
     LpMinimize,
     LpProblem,
     LpStatus,
     LpVariable,
-    PULP_CBC_CMD,
     lpSum,
     value,
 )
